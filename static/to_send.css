@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Text&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body{
+    font-family:Questrial,sans-serif;
+}
+.navbarwhole{
+    display:flex;
+    justify-content: space-between;
+    height:93px;
+    background-color: #AFC8A8;
+}
+.title_area{
+    font-family:"Libre Barcode 39 Text",sans-serif;
+    display:flex;
+    justify-content: flex-start;
+    align-items:center;
+    height:93px;
+    width:200px;
+    margin-left:50px
+}
+.title_area p{
+    font-size:275%;
+    color:white;
+}
+.items_area{
+    font-family: Questrial,sans-serif;
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    height:93px;
+    width:875px;
+    overflow:visible;
+    margin-right:50px
+}
+.items_area p{
+    font-size:150%;
+    color:white;
+    text-align: center;
+    margin-bottom:0px;
+}
+.items_area p.active{
+    font-size:150%;
+    color:white;
+    text-align: center;
+    font-family: Poppins,sans-serif;
+    font-weight:bold;
+}
+.items_area p.active:hover{
+    cursor:default;
+}
+.items_area a{
+    font-size:150%;
+    color:white;
+    text-align: center;
+    text-decoration: none;
+    transition: transform 0.3s ease-in-out
+}
+.items_area a:hover{
+    transform: scale(1.05)
+}

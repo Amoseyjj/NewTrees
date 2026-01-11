@@ -1,0 +1,92 @@
+{% extends "admin_base.html" %}
+{% block title %}NewTrees - Customer Tickets{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='retrieveContactForms.css') }}"/>
+{% endblock %}
+
+{% block content %}
+<h1 class="display-4">Customer Tickets</h1>
+<div>
+    {% if count == 0 %}
+    <p>There are no tickets.</p>
+    {% elif count == 1 %}
+    <p>There is 1 ticket.</p>
+    {% else %}
+    <p>There are {{ count }} tickets.</p>
+    {% endif %}
+</div>
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Ticket ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Message</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for form in contact_form_list %}
+            <tr>
+                <td>{{ form.get_form_id() }}</td>
+                <td>{{ form.get_first_name() }}</td>
+                <td>{{ form.get_last_name() }}</td>
+                <td>{{ form.get_phone_number() }}</td>
+                <td>{{ form.get_email() }}</td>
+
+                <td>
+                  {% if form.get_message()|length > 30 %}
+                    {{ form.get_message()[:30] }}...
+                  {% else %}
+                    {{ form.get_message() }}
+                  {% endif %}
+                </td>
+
+                <td><a href="/viewContactForm/{{form.get_form_id()}}" class="btn btn-custom">View</a></td>
+                <td>
+                  <!-- Button to Open the Modal -->
+                  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal_{{form.get_form_id()}}">
+                    Delete
+                  </button>
+
+                  <!-- The Modal -->
+                  <div class="modal" id="myModal_{{form.get_form_id()}}">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                          <h4 class="modal-title">Delete confirmation</h4>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                          Are you sure you want to delete {{form.get_first_name()}} {{form.get_last_name()}}?
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                          <!-- Form moved outside the modal for proper action handling -->
+                          <form action="{{url_for('delete_contact_form', id=form.get_form_id())}}" method="POST">
+                            <input type="submit" value="Delete" class="btn btn-danger">
+                          </form>
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

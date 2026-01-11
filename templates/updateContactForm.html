@@ -1,0 +1,47 @@
+{% extends "admin_base.html" %}
+{% block title %}NewTrees - Update Customer Ticket{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='updatecontactform.css') }}"/>
+{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+<div class="header-title">
+<h1 class="display-6">Update Customer Ticket</h1>
+</div>
+
+<div class="form-container">
+  <form method="POST" action="">
+    <div class="row">
+      <div class="column">
+        {{ render_field(form.first_name, class="form-control") }}
+      </div>
+      <div class="column">
+        {{ render_field(form.last_name, class="form-control") }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="column">
+        {{ render_field(form.phone_number, class="form-control") }}
+      </div>
+      <div class="column">
+        {{ render_field(form.email, class="form-control") }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="full-width">
+        {{ render_field(form.message, class="form-control message-field") }}
+      </div>
+    </div>
+
+    <div class="button-container">
+      <input type="submit" value="Submit" class="btn update-btn">
+      <a href="/retrieveContactForms" class="btn back-btn">Back</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

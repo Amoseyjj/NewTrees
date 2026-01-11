@@ -1,0 +1,91 @@
+{% extends "admin_base.html" %}
+
+{% block title %}NewTrees - ChatBot Feedback{% endblock %}
+
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='chatbotfeedback.css') }}"/>
+{% endblock %}
+
+{% block content %}
+<h1 class="display-6">Chatbot Ratings</h1>
+<div class="container">
+        <div class="box">
+            <p>Customer satisfaction rate</p>
+            <span id="satisfaction-rate" class="value">--%</span>
+        </div>
+        <div class="box">
+            <p>Total amount of ratings</p>
+            <span id="total-ratings" class="value">--</span>
+        </div>
+        <div class="box">
+            <p>Participation rate</p>
+            <span id="participation-rate" class="value">--%</span>
+        </div>
+</div>
+
+<div class="ratings-chart">
+    <canvas id="ratingsChart"></canvas>
+</div>
+
+    <script>
+        function fetchStats() {
+            fetch("/get_ChatBotStats")  // Fetch statistics from Flask
+            .then(response => response.json())
+            .then(data => {
+                // Update statistics text
+                document.getElementById("satisfaction-rate").textContent = Math.round(data.satisfaction_rate) + "%";
+                document.getElementById("total-ratings").textContent = data.total_ratings;
+                document.getElementById("participation-rate").textContent = Math.round(data.participation_rate) + "%";
+
+                // Create the chart with rating counts
+                updateChart(data.bad, data.average, data.good);
+            })
+            .catch(error => console.error("Error fetching stats:", error));
+        }
+
+        function updateChart(bad, average, good) {
+            let ctx = document.getElementById("ratingsChart").getContext("2d");
+
+            new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: ["Bad", "Average", "Good"],
+                    datasets: [{
+                        label: "Number of Ratings",
+                        data: [bad, average, good],
+                        backgroundColor: ["#3A5B22", "#3A5B22", "#3A5B22"],  // Colors for bars
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,  // Enable the title
+                            text: "Chatbot Rating Distribution",  // Set the title text
+                            font: {
+                                size: 18,  // Adjust the font size
+                                weight: "bold"
+                            },
+                            padding: {
+                                top: 10,
+                                bottom: 20
+                            }
+                        },
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { stepSize: 1 }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Call fetchStats() when the page loads
+        document.addEventListener("DOMContentLoaded", fetchStats);
+    </script>
+{% endblock %}

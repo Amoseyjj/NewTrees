@@ -1,0 +1,74 @@
+.faq-category {
+      height: 100%; /* Full height */
+      background-color: #fff;
+      padding: 0px;
+      border-right: 1px solid #ddd;
+      }
+
+.faq-category a {
+      display: block;
+      margin-bottom: 0px;
+      color: #333;
+      text-decoration: none;
+      font-weight: bold;
+      }
+
+.faq-category a:hover {
+      }
+
+.list-group-item.active {
+    background-color: #6F8668;
+    border-color: #6F8668;
+}
+
+.faq-questions {
+      height: 105%;
+      overflow-y: auto;
+      background-color: #fff;
+      padding: 0px;
+      }
+
+.floating-buttons {
+    position: fixed;
+    bottom: 10px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: flex-end;  /* Align them to the right */
+}
+
+.floating-buttons .btn {
+    margin-bottom: 10px;
+    border-radius: 50px;
+    background-color: #4B5842;
+    border-color: #4B5842;
+}
+
+.floating-buttons .btn:hover {
+    background-color: #6A7B63;
+    border-color: #6A7B63;
+}
+
+.floating-buttons a {
+    margin-bottom: 10px; /* Ensure there's space between the buttons */
+}
+
+.chatbot img:hover {
+    transform: scale(1.2);
+}
+
+.chatbot img {
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.questrial-regular {
+      font-family: "Questrial", serif;
+      font-weight: 400;
+      font-style: normal;
+      }
+
+.faqSearch{
+    outline:none;
+}

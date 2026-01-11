@@ -1,0 +1,45 @@
+{% extends "admin_base.html" %}
+{% block title %}View Customer Ticket{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='viewcontactform.css') }}"/>
+{% endblock %}
+
+{% block content %}
+<div class="header-title">
+<h1 class="display-6">View Customer Ticket</h1>
+</div>
+
+<div class="view-container">
+  <div class="row">
+    <div class="column">
+      <label>Full Name:</label>
+      <p>{{ contact_form.get_first_name() }} {{ contact_form.get_last_name() }}</p>
+    </div>
+    <div class="column">
+      <label>Phone Number:</label>
+      <p>{{ contact_form.get_phone_number() }}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="full-width">
+      <label>Email:</label>
+      <p>{{ contact_form.get_email() }}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="full-width">
+      <label>Message:</label>
+      <p>{{ contact_form.get_message() }}</p>
+    </div>
+  </div>
+
+  <div class="button-container">
+    <a href="{{ url_for('update_contact', id=contact_form.get_form_id()) }}" class="btn update-btn">Update</a>
+    <a href="/retrieveContactForms" class="btn back-btn">Back</a>
+  </div>
+</div>
+
+{% endblock %}

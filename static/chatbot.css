@@ -1,0 +1,135 @@
+.chat-header {
+    background-color: #E2E2E2; /* Solid color */
+    color: black;
+    font-size: 24px;
+    padding: 15px;
+    width: 100%;
+    display: flex;
+}
+
+.header-text {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 15px;
+}
+
+.header-left {
+    margin-right: 50px;
+}
+
+/* Ensure .chat-container uses flexbox for layout */
+.chat-container {
+    width: 800px;
+    height: 95vh; /* Adjust to your preferred height */
+    background: white;
+    border-radius: 0px;
+    padding: 20px;
+    margin: auto;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column; /* Stack chat messages and input vertically */
+    justify-content: space-between; /* Space out chat messages from input section */
+}
+
+/* The chat-box for messages, ensuring it's scrollable */
+.chat-box {
+    height: 100%; /* Adjust as needed */
+    overflow-y: auto;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    display: flex;
+    flex-direction: column; /* Ensure messages stack vertically */
+}
+
+/* Bot and user messages */
+.bot-message, .user-message {
+    padding: 10px;
+    margin: 5px 0;
+    max-width: 80%;
+}
+
+.bot-message {
+    background: #cce5cc;
+    align-self: flex-start; /* Align bot message to the left */
+    border-radius: 0px 10px 10px;
+}
+
+.user-message {
+    background: #486F2E;
+    align-self: flex-end; /* Align user message to the right */
+    border-radius: 10px 0px 10px 10px;
+    color: white;
+}
+
+/* Input and button styles */
+input {
+    width: 90%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    font-size: 17px;
+}
+
+.input-field input:focus {
+    outline: none;
+}
+
+.input-field img {
+    width: 55px;
+    padding: 10px;
+}
+
+/* Container for each message and image */
+.message-container {
+    display: flex;
+    align-items: flex-start;  /* Align the image to the top of the message */
+    margin-bottom: 10px;      /* Space between messages */
+}
+
+/* Style for the bot image */
+.bot-image {
+    width: 50px;      /* Set the width of the image */
+    height: auto;     /* Keep the aspect ratio */
+    margin-right: 10px;  /* Space between the image and the message */
+    margin-top: -5px;    /* Slightly move the image up (adjust as needed) */
+}
+
+/* User messages */
+.user-message-container {
+    justify-content: flex-end;
+}
+
+.rating-box {
+    background: #F3F3F3;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.rating-options {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between rating options */
+    margin-top: 10px;
+}
+
+.rating-options span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+    margin: 10px;
+    transition: transform 0.2s;
+}
+
+.rating-options img {
+    width: 75px;
+}
+
+.rating-options span:hover {
+    transform: scale(1.2);
+}

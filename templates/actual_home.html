@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="{{ url_for('static', filename='images/nt_icon.png') }}" type="image/png">
+    <title>Home Page</title>
+</head>
+<body>
+    <!--navbar-->
+    <div class="navbarwhole">
+        <div class="title_area">
+            <p>Newtrees</p>
+        </div>
+        <div class="items_area">
+            <p class="active">HOME</p>
+            <a href="{{ url_for('home') }}">PRE-OWNED</a>
+            <a href="{{ url_for('market') }}">MARKETPLACE</a>
+            <p>CART</p>
+            <a href="{{ url_for('support')}}">SUPPORT</a>
+        </div>
+    </div>
+    <div class="home_bg1">
+        <p>NEWTREES</p>
+    </div>
+    <div class="text-body">
+        <div class="title-area">
+            <p class="title-font">About Us</p>
+        </div>
+        <div class="body-area">
+            <p>At NewTrees, we are on a mission to redefine shopping by creating a sustainable marketplace where conscious choices meet convenience. Our platform offers a carefully curated selection of eco-friendly products, sustainable alternatives, and pre-owned treasures, empowering individuals to make meaningful decisions that contribute to a healthier planet.</p>
+        </div>
+    </div>
+    <div class="home_bg2">
+        <p>Our Contributions</p>
+    </div>
+    <div class="text-body">
+        <div class="body-area" style="justify-content: center; margin-left:5%;margin-right:0">
+            <p>Our business revolves around sustainability, thus, for every 5 purchases, our partners will plant a tree. Make a purchase to help make a difference!</p>
+        </div>
+        <div class="title-area" style="flex-direction: column;">
+            <p class="tree-count-font">256</p>
+            <p class="trees-planted" style="margin-top:0">trees planted</p>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-left">
+            <p class="footer-logo">NEWTREES</p>
+            <div class="footer-icons">
+                <div class="icon-circle"><span class="icon"><i class="fa-regular fa-envelope"></i></span></div>
+                <div class="icon-circle"><span class="icon"><i class="fa-brands fa-instagram"></i></span></div>
+                <div class="icon-circle"><span class="icon"><i class="fa-brands fa-linkedin"></i></span></div>
+                <div class="icon-circle"><span class="icon"><i class="fa-brands fa-twitter"></i></span></div>
+                <div class="icon-circle"><span class="icon"><i class="fa-solid fa-phone"></i></span></div>
+            </div>
+        </div>
+        <nav class="footer-middle">
+            <a class="active">Home</a>
+            <a href="{{ url_for('home') }}">Pre-Owned</a>
+            <a href="{{ url_for('market') }}">Marketplace</a>
+            <a href="#">Cart</a>
+            <a href="{{ url_for('support')}}">Support</a>
+            <a href="#">Account</a>
+        </nav>
+        <div class="footer-right">
+            <p class="join-text">Join our forest</p>
+            <button class="footer-register">Register</button>
+            <p class="footer-signin">Already a member? <a href="#">Sign in</a></p>
+        </div>
+    </footer>
+</body>

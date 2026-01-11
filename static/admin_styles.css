@@ -1,0 +1,230 @@
+/* The sidebar menu */
+
+body{
+  all: unset;
+  font-family: Questrial !important;
+  background-color: #f5f5f5 !important;
+}
+
+.customer-category li{
+  margin-left: 0px;
+  color: white;
+  font-size: 20px;
+  list-style-type: none;
+}
+
+.customer-category li:hover{
+  color: #d6d6d6;
+}
+
+.sidenav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 250px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #4B5842; /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+  font-family: Questrial;
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 20px 8px 20px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #ffffff;
+  display: block;
+  margin-left: 40px;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #d6d6d6;
+}
+
+.sidenav .headerimg{
+  width: 200px;
+  margin-left: 20px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.sidenav hr{
+  margin-left: 10px;
+  margin-right: 10px;
+  border-width: 0.5px;
+  border: white 2px solid;
+}
+
+.sidenav img{
+  color: red;
+  margin-left: -20px;
+  margin-right: 20px
+}
+
+.sidenav .current{
+  font-weight: bolder;
+}
+
+/* Style page content */
+.main {
+  margin-left: 280px; /* Same as the width of the sidebar */
+}
+
+.mainbar {
+  margin-left: 250px;
+}
+
+.topbar {
+  all: revert;
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  padding:10px;
+  margin-top: -10px;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  font-family: Questrial;
+}
+
+.title{
+  font-weight: bold;
+}
+
+.topbar img{
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+}
+
+.topbar .title {
+  margin-top: 15px;
+  margin-left: 20px;
+  font-size: 20px;
+  font-weight: bolder;
+  padding: 5px;
+  }
+
+.main .title{
+  margin-top: 20px;
+}
+
+.leftside{
+  margin-left: auto;
+  display: flex;
+}
+
+.topnav{
+  margin-right: 30px;
+}
+
+
+.searchbar {
+  font-size: 20px;
+  width: 225px;
+  margin-right: 20px;
+  background-color: #d6d6d6;
+  border-radius: 10px;
+  padding: 5px 20px;
+ }
+
+ .topnav {
+  margin-left: auto;
+ }
+
+.firstdiv {
+  margin-top: -20px;
+}
+
+.division {
+  margin-top: 20px;
+  padding: 50px 20px 50px 20px;
+  background-color: white;
+  border-radius: 10px;
+  filter: drop-shadow(1px 1px 1px);
+  margin-right: 20px;
+}
+
+#retrieve td{
+  padding: 15px;
+  margin-left: 10px;
+}
+
+#retrieve th{
+  padding: 15px 15px 15px 15px;
+  margin-left: 10px;
+  text-align: center;
+}
+
+.btn {
+  background-color: #4B5842;
+  color:#4B5842;
+}
+
+.repheader {
+  color: #3A5B22;
+  font-size: 20px;
+  font-weight: 400;
+  margin-top: 20px;
+  margin-bottom: -15px;
+}
+
+.alert {
+  margin-right: 20px;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+.alert {
+  position: relative;
+  overflow: hidden;
+}
+
+.alert.alert-success {
+  animation: fadeOut 5s linear forwards;
+}
+
+.alert.alert-success:hover {
+  animation-play-state: paused;
+}
+
+.progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.alert-success .progress-bar {
+  animation: countdown 5s linear forwards;
+}
+
+.alert:hover .progress-bar {
+  animation-play-state: paused;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes countdown {
+  0% { width: 100%; }
+  100% { width: 0; }
+}

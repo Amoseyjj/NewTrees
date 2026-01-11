@@ -1,0 +1,20 @@
+<div class="sidenav">
+  <img src="{{ url_for('static', filename='image.png') }}" alt="" class="headerimg">
+  <hr>
+  <a href="#"><img src="{{ url_for('static', filename='Activity.png') }}" alt="">Reports</a>
+  <a href="#"><img src="{{ url_for('static', filename='Archive.png') }}" alt="">Accounts</a>
+  <a href="#"><img src="{{ url_for('static', filename='Card.png') }}" alt="">Transactions</a>
+  <a href="/ChatBotFeedback" class="current"><img src="{{ url_for('static', filename='People.png') }}" alt="">Customers</a>
+  <div class="customer-category">
+    <ul>
+        <li class="{% if active_page == 'ChatBotFeedback' %}current{% endif %}">
+            <a href="/ChatBotFeedback">Chatbot Rating</a>
+        </li>
+        <li class="{% if active_page == 'retrieveContactForms' %}current{% endif %}">
+            <a href="/retrieveContactForms">Tickets</a>
+        </li>
+    </ul>
+  </div>
+  <a href="#"><img src="{{ url_for('static', filename='settings.png') }}" alt="">Settings</a>
+  <hr>
+</div>

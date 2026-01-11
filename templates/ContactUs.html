@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block title %}NewTrees - Contact Us{% endblock %}
+
+{% block head %}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+</style>
+<link rel="stylesheet" href="{{ url_for('static', filename='contactus.css') }}"/>
+<style>
+  body {
+    background-image: url("{{ url_for('static', filename='forest final 1.png') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+<div class="form-container questrial-regular">
+  <div>
+    <h1 class="display-5">Contact Us</h1>
+    <p>Can't find the answer you're looking for? Don't worry, we got you.</p>
+  </div>
+
+<form method="POST" action="">
+  <div class="name-fields">
+    <div class="form-group">
+      {{ render_field(form.first_name, class="form-control", placeholder="Enter First Name") }}
+    </div>
+    <div class="form-group">
+      {{ render_field(form.last_name, class="form-control", placeholder="Enter Last Name") }}
+    </div>
+  </div>
+  <div class="form-group">
+    <!-- Render phone_number field with added attributes -->
+    {{ render_field(form.phone_number, class="form-control", placeholder="Enter Phone Number", type="tel", pattern="[0-9]*", inputmode="numeric", maxlength="8") }}
+  </div>
+  <div class="form-group">
+    {{ render_field(form.email, class="form-control", placeholder="Enter Email") }}
+  </div>
+  <div id="prof" style="margin-bottom:10px;">
+    <div class="form-group">
+      {{ render_field(form.message, class="form-control", placeholder="Enter Message") }}
+    </div>
+  </div>
+  <input type="submit" value="Submit" class="btn btn-primary submit-button" style="margin-top:30px;margin-bottom: 10px;"/>
+</form>
+</div>
+{% endblock %}
+
+{% block footer %}
+<footer>
+    <p class="footer-title">Newtrees</p> <!-- Use the new class instead of a div -->
+
+    <div class="footer-container questrial-regular">
+        <div class="footer-logo"></div>
+
+        <div class="footer-info">
+            <p class="footer-text">Alternatively, you can contact us through:</p>
+
+            <div class="row-container">
+                <div class="address">
+                    <p class="email">
+                        <div class="image-wrapper">
+                            <img src="{{ url_for('static', filename='circle.png') }}" class="circle" style="width: 42px;">
+                            <img src="{{ url_for('static', filename='Email.png') }}" class="main-image" style="width: 24px;">
+                        </div>
+                        contactNewTrees@newtrees.com
+                    </p>
+                    <p style="color: #fff; font-size:25px">Address</p>
+                    <div class="black-text">
+                        <p>99 Marketplace Avenue, Singapore</p>
+                        <p>049123</p>
+                        <p>#12-34, Innovation Hub</p>
+                    </div>
+                </div>
+
+                <div class="hours">
+                    <p class="phone-number">
+                        <div class="image-wrapper">
+                            <img src="{{ url_for('static', filename='circle.png') }}" class="circle" style="width: 42px;">
+                            <img src="{{ url_for('static', filename='Phone.png') }}" class="main-image" style="width: 24px;">
+                        </div>
+                        7657 8667
+                    </p>
+                    <p style="color: #fff; font-size: 25px;">Office operating hours</p>
+                    <div class="black-text">
+                        <p>Monday to Friday: 9:00 AM – 6:00 PM</p>
+                        <p>Saturday: 10:00 AM – 4:00 PM</p>
+                        <p>Sunday and Public Holidays: Closed</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Submission Successful</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Your form has been submitted successfully! You will be redirected
+        shortly.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="redirectButton" style="background-color: #AFC8A8; border-color: #AFC8A8; color: black;">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $("form").submit(function(event) {
+        event.preventDefault(); // Prevent normal form submission
+
+        var formData = $(this).serialize(); // Serialize form data
+
+        $.ajax({
+            type: "POST",
+            url: "/ContactUs",
+            data: formData,
+            success: function(response) {
+                if (response.success) {
+                    $("#successModal").modal("show"); // Show Bootstrap modal
+                    setTimeout(function() {
+                        window.location.href = "/"; // Redirect to home after 3 seconds
+                    }, 5000);
+                }
+            }
+        });
+    });
+
+    $("#redirectButton").click(function() {
+        window.location.href = "/"; // Redirect immediately when clicking "OK"
+    });
+});
+</script>
+
+{% endblock %}

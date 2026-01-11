@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Product Details</title>
+</head>
+<body>
+    <!--navbar-->
+    <div class="navbarwhole">
+        <div class="title_area">
+            <p>Newtrees</p>
+        </div>
+        <div class="items_area">
+            <a href="{{ url_for('actual_home') }}">HOME</a>
+            <a href="{{ url_for('home') }}">PRE-OWNED</a>
+            <a href="{{ url_for('market') }}">MARKETPLACE</a>
+            <p>CART</p>
+            <a href="{{ url_for('support')}}">SUPPORT</a>
+        </div>
+    </div>
+    <div class="product_details_bg">
+        <div class="product_details">
+            <div class="product_details_title">
+                <p>PRODUCT DETAILS</p>
+                <a href="{{ referrer or url_for('home') }}" class="product_details_exit">&times;</a>
+            </div>
+            <div class="current_and_change">
+                <div class="current_details">
+                    <p><span class="detail_title">Product Name:</span><br>{{ product[1] }}</p>
+                    <p><span class="detail_title">Description: </span><br>{{ product[2] }}</p>
+                    <p><span class="detail_title">Price: </span><br>${{ "%.2f" | format(product[3]) }}</p>
+                    <p><span class="detail_title">Seller Username: </span><br>{{ product[4] }}</p>
+                </div>
+                <form id="changesForm" class="changes_form" method="POST" action="{{ url_for('update_product', product_id=product[0]) }}">
+                    <input type="hidden" name="referrer" value="{{ referrer }}">
+                    <div>
+                        <label for="new_product_name">New Product Name:</label><br>
+                        <input type="text" name="new_product_name" placeholder="Enter Product Name:"  autocomplete="off"><br>
+                    </div>
+                    <div>
+                        <label for="new_product_desc">New Product Description:</label><br>
+                        <textarea name="new_product_desc" placeholder="Enter Product Description:" autocomplete="off"></textarea><br>
+                    </div>
+                    <div>
+                        <label for="new_product_price">New Product Price:</label><br>
+                        <input type="number" name="new_product_price" step="0.01" placeholder="Enter Product Price"  autocomplete="off"><br>
+                    </div>
+                    <div>
+                        <label for="new_product_seller">New Product Seller:</label><br>
+                        <input type="text" name="new_product_seller" placeholder="Enter Product Seller"  autocomplete="off"><br>
+                    </div>
+                </form>
+            </div>
+            <div class="actions_buttons">
+                <button onclick="window.location.href='{{ url_for('delete_product', product_id=product[0], referrer=request.args.get('referrer')) }}'" class="remove">- Remove</button>
+                <button id="save" disabled>Save Changes</button>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-left">
+            <p class="footer-logo">NEWTREES</p>
+            <div class="footer-icons">
+                <div class="icon-circle"><span class="icon"><i class="fa-regular fa-envelope"></i></span></div>
+                <div class="icon-circle"><span class="icon"><i class="fa-brands fa-instagram"></i></span></div>
+                <div class="icon-circle"><span class="icon"><i class="fa-brands fa-linkedin"></i></span></div>
+                <div class="icon-circle"><span class="icon"><i class="fa-brands fa-twitter"></i></span></div>
+                <div class="icon-circle"><span class="icon"><i class="fa-solid fa-phone"></i></span></div>
+            </div>
+        </div>
+        <nav class="footer-middle">
+            <a href="{{ url_for('actual_home') }}">Home</a>
+            <a href="{{ url_for('home') }}">Pre-Owned</a>
+            <a href="{{ url_for('market') }}">Marketplace</a>
+            <a href="#">Cart</a>
+            <a href="{{ url_for('support')}}">Support</a>
+            <a href="#">Account</a>
+        </nav>
+        <div class="footer-right">
+            <p class="join-text">Join our forest</p>
+            <button class="footer-register">Register</button>
+            <p class="footer-signin">Already a member? <a href="#">Sign in</a></p>
+        </div>
+    </footer>
+</body>
+<script>
+    
+// Function to check if any field is filled
+function checkFormFields() {
+    var form = document.getElementById('changesForm');
+    var inputs = form.querySelectorAll('input[type="text"], input[type="number"], textarea');
+    let isFormValid = false;
+
+    inputs.forEach(function(input) {
+        if (input.value.trim() !== "") {
+            isFormValid = true;
+        }
+    });
+
+    console.log("Final isFormValid:", isFormValid); // Debugging
+
+    var save = document.getElementById('save');
+    save.disabled = !isFormValid;
+    save.classList.toggle('enabled', isFormValid);
+}
+
+// Ensure function runs on any input change
+document.getElementById('changesForm').addEventListener('input', checkFormFields);
+
+// Attach the checkFormFields function to all input and textarea fields
+document.querySelectorAll('#changesForm input, #changesForm textarea').forEach(function(input) {
+    input.addEventListener('input', checkFormFields); // Run checkFormFields on any input change
+});
+// Get the form and the submit button
+const form = document.querySelector('.changes_form');
+const submitButton = document.getElementById('save');
+
+// Handle form submission by clicking the button
+submitButton.addEventListener('click', function() {
+    if (!submitButton.disabled) {
+        form.submit();  // Submit the form if the button is enabled
+    }
+});
+
+// Initial call to set button state on page load
+checkFormFields();
+</script>
+</html>

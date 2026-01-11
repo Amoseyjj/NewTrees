@@ -1,0 +1,402 @@
+{% extends "base.html" %}
+{% block title %}Support Page{% endblock %}
+
+{% block head %}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+</style>
+<link rel="stylesheet" href="{{ url_for('static', filename='support.css') }}"/>
+{% endblock %}
+
+{% block content %}
+<div style="text-align: center;margin-top:30px;" class="questrial-regular">
+  <h1 class="display-5">How can we help you?</h1>
+  <p style="opacity: 0.6;">Search frequently asked questions</p>
+</div>
+
+<div class="container mt-4 d-flex justify-content-center questrial-regular" style="margin-bottom:50px;">
+  <form class="d-flex" style="width: 700px;">
+    <input
+      id="faqSearch"
+      class="form-control form-control-sm me-2"
+      type="search"
+      placeholder="How do I place an order?"
+      aria-label="Search"
+      style="height: 35px; border-radius: 20px;">
+  </form>
+</div>
+
+<div class="container-fluid" style="margin-top: 15px">
+    <div class="row" style="height: 80vh;"> <!-- Main row -->
+      <!-- Left Sidebar (FAQ Categories) -->
+      <div class="col-md-3 faq-category questrial-regular">
+        <div class="d-flex flex-column">
+          <div class="list-group">
+
+          <a href="#" class="list-group-item list-group-item-action category-link" style="padding: 60px;
+          align-items: center; justify-content: center; text-align: center;" data-filter="buying">
+
+            <img src="{{ url_for('static', filename='bag.png') }}"
+             alt="shopping bag"
+             style="max-width: 30px; padding-bottom: 5px;"
+             data-src-black="{{ url_for('static', filename='bag.png') }}"
+             data-src-white="{{ url_for('static', filename='bag-white.png') }}">
+
+            Buying</a>
+          <a href="#" class="list-group-item list-group-item-action category-link" style="padding: 60px;
+          align-items: center; justify-content: center; text-align: center;" data-filter="selling">
+
+            <img src="{{ url_for('static', filename='cart.png') }}"
+             alt="shopping cart"
+             style="max-width: 30px; padding-bottom: 5px;"
+             data-src-black="{{ url_for('static', filename='cart.png') }}"
+             data-src-white="{{ url_for('static', filename='cart-white.png') }}">
+
+            Selling</a>
+          <a href="#" class="list-group-item list-group-item-action category-link" style="padding: 60px;
+          align-items: center; justify-content: center; text-align: center;" data-filter="managing">
+
+            <img src="{{ url_for('static', filename='user.png') }}"
+             alt="user icon"
+             style="max-width: 30px; padding-bottom: 5px;"
+             data-src-black="{{ url_for('static', filename='user.png') }}"
+             data-src-white="{{ url_for('static', filename='user-white.png') }}">
+
+            Managing Your Account</a>
+          <a href="#" class="list-group-item list-group-item-action category-link" style="padding: 60px;
+          align-items: center; justify-content: center; text-align: center;" data-filter="troubleshooting">
+
+            <img src="{{ url_for('static', filename='troubleshoot.png') }}"
+             alt="troubleshooting"
+             style="max-width: 30px; padding-bottom: 5px;"
+             data-src-black="{{ url_for('static', filename='troubleshoot.png') }}"
+             data-src-white="{{ url_for('static', filename='troubleshoot-white.png') }}">
+
+            Troubleshooting</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Sidebar (FAQ Questions) -->
+      <div class="col-md-9 faq-questions questrial-regular" style="margin-bottom: 100px;">
+
+        <div id="noResults" style="display: none; text-align: center; margin-top: 20px;">
+          <img src="{{ url_for('static', filename='invalid.gif') }}" alt="No results found" style="max-width: 350px;">
+          <p>No such question found. Please try a different search. :(</p>
+        </div>
+
+        <div class="accordion" id="faqAccordion">
+          <!-- Example FAQ -->
+          <div class="accordion-item" data-category="buying" data-question="How do I place an order?">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                How do I place an order?
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                <p>Placing an order is simple! Browse our listings, select the item you want, and click the "Add to Cart"
+                button.</p> <p>Once you're ready, proceed to checkout, where you can review your order, provide your shipping
+                information, and confirm your purchase.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Add more FAQs with respective categories -->
+          <div class="accordion-item" data-category="buying" data-question="What payment methods are accepted?">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                What payment methods are accepted?
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                <p>We accept a variety of secure payment methods, including major credit and debit cards, digital wallets
+                  (like PayPal), and bank transfers.</p> <p>Additionally, some sellers may offer eco-friendly payment options,
+                such as direct exchanges or community credits.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" data-category="buying" data-question="How do refunds and returns work?">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                How do refunds and returns work?
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                <p>To request a refund or return, go to "My Orders," select the item, and follow the prompts.</p> <p>Provide a reason and,
+                  if needed, photos. Once approved, you’ll receive return instructions or a refund.</p> <p>Refunds are processed within 1-5 working days after the seller confirms receipt of the returned item.</p>
+                <p>For details, check our Refund Policy or contact Support.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" data-category="selling" data-question="How do I list an item for sale?">
+            <h2 class="accordion-header" id="headingFour">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                How do I list an item for sale?
+              </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                <p>To list an item, create an account and log in. Then, click the "List an Item" button on your dashboard.</p>
+                <p>Fill in the details about your product, such as title, description, price, and condition, and upload
+                high-quality photos.</p> <p>Once you're satisfied, submit your listing for approval.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" data-category="selling" data-question="Are there any fees for listing items?">
+            <h2 class="accordion-header" id="headingFive">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                Are there any fees for listing items?
+              </button>
+            </h2>
+            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                <p>Yes, we charge a small listing fee to help maintain and improve the platform.</p> <p>The fee structure is
+                transparent and designed to support sustainable practices.</p> <p>Check out our pricing page for detailed
+                information about fees and potential discounts for eco-friendly products.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" data-category="selling" data-question="How do I receive payments for the items I sell?">
+            <h2 class="accordion-header" id="headingSix">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                How do I receive payments for the items I sell?
+              </button>
+            </h2>
+            <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                <p>Payments are processed securely through the platform.</p> <p>Once your item is sold, the funds will be
+                transferred to your registered bank account or digital wallet after the buyer confirms receipt of the
+                item.</p> <p>Specific payout timelines may vary based on the payment method chosen.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" data-category="selling" data-question="Can I edit or remove a posting after it's been posted?">
+            <h2 class="accordion-header" id="headingSeven">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                Can I edit or remove a posting after it's been posted?
+              </button>
+            </h2>
+            <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                <p>Yes, you can edit or remove your posting anytime before the item is sold.</p> <p>Simply log in to your
+                account, navigate to your listings, and choose the "Edit" or "Remove" option for the item.</p> <p>Please note
+                that significant edits may require reapproval to ensure compliance with our marketplace policies.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" data-category="managing" data-question="How do I create an account?">
+            <h2 class="accordion-header" id="headingEight">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                How do I create an account?
+              </button>
+            </h2>
+            <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                <p>Creating an account is easy! Click on the "Sign Up" button on the homepage.</p> <p>Fill in your details,
+                including your email address and a secure password.</p> <p>You’ll receive a confirmation email with a link to
+                activate your account.</p> <p>Once activated, you can start using the marketplace.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" data-category="managing" data-question="How can I update my profile information?">
+            <h2 class="accordion-header" id="headingNine">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                How can I update my profile information?
+              </button>
+            </h2>
+            <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                <p>To update your profile, log in to your account and navigate to the "My Account" section.</p> <p>Here, you can
+                edit your name, email, phone number, address, and other details.</p> <p>Be sure to save your changes before
+                exiting.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" data-category="managing" data-question="How do I reset my password?">
+            <h2 class="accordion-header" id="headingTen">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                How do I reset my password?
+              </button>
+            </h2>
+            <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                <p>If you forgot your password, click the "Forgot Password?" link on the login page.</p> <p>Enter your registered
+                email address, and we’ll send you a link to reset your password.</p> <p>Follow the instructions in the email
+                to set a new password.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" data-category="managing" data-question="How can I delete my account?">
+            <h2 class="accordion-header" id="headingEleven">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+                How can I delete my account?
+              </button>
+            </h2>
+            <div id="collapseEleven" class="accordion-collapse collapse" aria-labelledby="headingEleven" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                <p>We’re sorry to see you go!</p> <p>If you want to delete your account, contact our support team through the
+                "Contact Us" page or email us directly.</p> <p>Note that account deletion is permanent and cannot be undone.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" data-category="troubleshooting" data-question="Why am I not receiving email notifications?">
+            <h2 class="accordion-header" id="headingTwelve">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
+                Why am I not receiving email notifications?
+              </button>
+            </h2>
+            <div id="collapseTwelve" class="accordion-collapse collapse" aria-labelledby="headingTwelve" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                <p>If you’re not receiving emails, first check your spam or junk folder.</p> <p>Ensure that the email address
+                registered with your account is correct.</p> <p>If the issue persists, add our email address to your contacts
+                or whitelist and try again.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" data-category="troubleshooting" data-question="What should I do if I encounter a payment error?">
+            <h2 class="accordion-header" id="headingThirteen">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirteen" aria-expanded="false" aria-controls="collapseThirteen">
+                What should I do if I encounter a payment error?
+              </button>
+            </h2>
+            <div id="collapseThirteen" class="accordion-collapse collapse" aria-labelledby="headingThirteen" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                <p>If your payment isn’t going through, double-check your payment details, including card number,
+                expiration date, and CVV.</p> <p>Ensure that your card or account has sufficient funds.</p> <p>If the issue
+                continues, try using a different payment method or contact our support team.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" data-category="troubleshooting" data-question="Why isn't my item appearing in search results?">
+            <h2 class="accordion-header" id="headingFourteen">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourteen" aria-expanded="false" aria-controls="collapseFourteen">
+                Why isn’t my item appearing in search results?
+              </button>
+            </h2>
+            <div id="collapseFourteen" class="accordion-collapse collapse" aria-labelledby="headingFourteen" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                <p>Newly listed items may take a few minutes to appear.</p> <p>If your item isn’t showing up after some time,
+                ensure it complies with our listing guidelines.</p> <p>You can also check the status of your listing in the
+                "My Listings" section.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" data-category="troubleshooting" data-question="What can I do if the website isn't loading properly?">
+            <h2 class="accordion-header" id="headingFifteen">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFifteen" aria-expanded="false" aria-controls="collapseFifteen">
+                What can I do if the website isn’t loading properly?
+              </button>
+            </h2>
+            <div id="collapseFifteen" class="accordion-collapse collapse" aria-labelledby="headingFifteen" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                <p>If the website is slow or unresponsive, try clearing your browser cache and cookies.</p> <p>You can also
+                switch to a different browser or device.</p> <p>If the issue continues, check your internet connection or
+                contact our support team for assistance.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+</div>
+
+  <!-- Floating Buttons -->
+<div class="floating-buttons questrial-regular" style="position: fixed; bottom: 10px; right: 20px; z-index: 1000;">
+    <img src="{{ url_for('static', filename='askmeanything.png') }}" style="max-width: 120px; z-index: 1200; bottom: 120px;
+     right: 30px; position: fixed; ">
+
+    <!-- Chatbot button first -->
+    <a href="/ChatBot" style="float: right; margin-bottom: 10px;" class="chatbot">
+        <img src="{{ url_for('static', filename='chatbot.png') }}" style="max-width: 60px;">
+    </a>
+
+    <!-- Contact Us button below -->
+    <a href="/ContactUs" class="btn btn-success" style="float: right; margin-left: 5px; margin-bottom: 10px;
+    border-radius: 50px; padding: 15px;"><img src="{{ url_for('static', filename='contact.png') }}"
+                                              style="max-width: 15px; margin-right: 10px;">Contact Us</a>
+</div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('faqSearch');
+    const faqItems = document.querySelectorAll('.accordion-item');
+    const noResults = document.getElementById('noResults');
+    let isNoResultsVisible = false; // Flag to track if "no results" GIF is visible
+
+    const updateSearchResults = () => {
+      const query = searchInput.value.toLowerCase();
+      let hasMatches = false;
+
+      faqItems.forEach(item => {
+        const question = item.getAttribute('data-question').toLowerCase();
+        if (question.includes(query)) {
+          item.style.display = ''; // Show matching items
+          hasMatches = true;
+        } else {
+          item.style.display = 'none'; // Hide non-matching items
+        }
+      });
+
+      // Show or hide the "no results" GIF
+      isNoResultsVisible = !hasMatches;
+      noResults.style.display = hasMatches ? 'none' : 'block';
+    };
+
+    searchInput.addEventListener('input', updateSearchResults);
+
+    document.querySelectorAll('.category-link').forEach(link => {
+      link.addEventListener('click', function (e) {
+        if (isNoResultsVisible) {
+          e.preventDefault(); // Prevent clicking categories when "no results" GIF is visible
+          return;
+        }
+
+        e.preventDefault();
+        const currentlyActive = document.querySelector('.category-link.active');
+        const category = this.getAttribute('data-filter');
+
+        if (currentlyActive === this) {
+          this.classList.remove('active');
+          this.blur(); // Remove focus/hover state
+          this.querySelector('img').src = this.querySelector('img').getAttribute('data-src-black');
+          faqItems.forEach(item => {
+            item.style.display = 'block';
+          });
+        } else {
+          if (currentlyActive) {
+            currentlyActive.classList.remove('active');
+            currentlyActive.querySelector('img').src = currentlyActive.querySelector('img').getAttribute('data-src-black');
+          }
+          this.classList.add('active');
+          this.querySelector('img').src = this.querySelector('img').getAttribute('data-src-white');
+          faqItems.forEach(item => {
+            if (item.getAttribute('data-category') === category) {
+              item.style.display = 'block';
+            } else {
+              item.style.display = 'none';
+            }
+          });
+        }
+      });
+    });
+  });
+</script>
+{% endblock %}

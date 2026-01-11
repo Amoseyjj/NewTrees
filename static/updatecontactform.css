@@ -1,0 +1,80 @@
+.header-title {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.form-container {
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 20px
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.column {
+  width: 48%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f8f9fa;
+}
+
+.message-field {
+  height: 100px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+}
+
+.update-btn {
+  background-color: #6F8668;
+  color: white;
+}
+
+.update-btn:hover {
+  background-color: #5c7056;
+  color: white;
+}
+
+.back-btn {
+  background-color: #6c757d;
+  color: white;
+}
+
+.back-btn:hover {
+  background-color: #545b62;
+  color: white;
+}

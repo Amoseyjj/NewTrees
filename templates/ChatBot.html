@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% block title %}NewTrees - ChatBot{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='chatbot.css') }}"/>
+<style>
+  body {
+    background-image: url("{{ url_for('static', filename='bamboo final 1.png') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="chat-header">
+    <div class="header-left">
+        <a href="/"><img src="{{ url_for('static', filename='arrow.png') }}" style="width: 31px; margin-top: 12px;"></a>
+    </div>
+
+        <img src="{{ url_for('static', filename='chatbot.png') }}" style="width: 65px; height: 55px;">
+    <div class="header-text">NewTrees Bot</div>
+
+</div>
+
+ <div class="chat-container">
+        <div class="chat-box" id="chat-box">
+            <div class="message-container">
+                <img src="{{ url_for('static', filename='chatbot.png') }}" class="bot-image">
+                <div class="bot-message">Hi there! I'm NewTrees Bot, your virtual assistant. How can I help you today?</div>
+            </div>
+            <div class="message-container">
+                <img src="{{ url_for('static', filename='chatbot.png') }}" class="bot-image">
+                <div class="bot-message">Type your question below, or choose from these topics:<br>
+                    1. Buying<br>2. Selling<br>3. Account Management
+                </div>
+            </div>
+        </div>
+        <div class="input-field">
+            <input type="text" id="user-input" placeholder="Write a message" autofocus>
+            <img src="{{ url_for('static', filename='send.png') }}" onclick="sendMessage()">
+        </div>
+ </div>
+
+<script>
+    let messageCount = 0; // Counter for user messages
+
+    function sendMessage() {
+        let userInput = document.getElementById("user-input").value;
+        if (userInput.trim() === "") return;
+
+        let chatBox = document.getElementById("chat-box");
+
+        // Create user message container
+        let userMessageContainer = document.createElement("div");
+        userMessageContainer.classList.add("message-container", "user-message-container");
+
+        let userMessage = document.createElement("div");
+        userMessage.classList.add("user-message");
+        userMessage.textContent = userInput;
+
+        userMessageContainer.appendChild(userMessage);
+        chatBox.appendChild(userMessageContainer);
+
+        document.getElementById("user-input").value = "";
+
+        messageCount++; // Increment message count
+
+        // Fetch bot response
+        fetch("/get_response", {
+            method: "POST",
+            body: new URLSearchParams({ message: userInput }),
+            headers: { "Content-Type": "application/x-www-form-urlencoded" }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Create bot message container
+            let botMessageContainer = document.createElement("div");
+            botMessageContainer.classList.add("message-container", "bot-message-container");
+
+            // Create bot image
+            let botImage = document.createElement("img");
+            botImage.src = "{{ url_for('static', filename='chatbot.png') }}";
+            botImage.classList.add("bot-image");
+
+            // Create bot message
+            let botMessage = document.createElement("div");
+            botMessage.classList.add("bot-message");
+            botMessage.textContent = data.response;
+
+            // Append image and message to container
+            botMessageContainer.appendChild(botImage);
+            botMessageContainer.appendChild(botMessage);
+
+            // Append bot response to chatbox
+            chatBox.appendChild(botMessageContainer);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Show rating prompt after 3 messages
+            if (messageCount === 3) {
+                showRatingPrompt();
+            }
+        });
+    }
+
+    function showRatingPrompt() {
+        let chatBox = document.getElementById("chat-box");
+
+        let ratingPromptContainer = document.createElement("div");
+        ratingPromptContainer.classList.add("rating-box");
+
+        ratingPromptContainer.innerHTML = `
+            <p>Rate our Service</p>
+            <p>How was your experience?</p>
+            <div class="rating-options">
+                <span onclick="submitRating('bad')"><img src="{{ url_for('static', filename='bad.png') }}" data-rating="bad">Bad</span>
+                <span onclick="submitRating('average')"><img src="{{ url_for('static', filename='average.png') }}" data-rating="average">Average</span>
+                <span onclick="submitRating('good')"><img src="{{ url_for('static', filename='good.png') }}" data-rating="good">Good</span>
+            </div>
+        `;
+
+        chatBox.appendChild(ratingPromptContainer);
+        setTimeout(() => {
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }, 100); // Small delay to wait for rendering
+
+        fetch("/prompt_rating", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" }
+        })
+        .then(response => response.json())
+        .then(data => console.log("Rating Prompt Tracked:", data))
+        .catch(error => console.error("Error tracking rating prompt:", error));
+
+    }
+
+    function submitRating(rating) {
+        fetch("/submit_rating", {
+            method: "POST",
+            body: new URLSearchParams({ rating: rating }),
+            headers: { "Content-Type": "application/x-www-form-urlencoded" }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(`You rated: ${rating}`);
+
+            console.log("Updated Rating Statistics:", data); // Logs all rating stats
+
+            // Change the rating image to its selected version
+            updateRatingImages(rating);
+        });
+    }
+
+
+    function updateRatingImages(selectedRating) {
+    const ratingOptions = document.querySelectorAll(".rating-options span");
+
+    ratingOptions.forEach(option => {
+        let img = option.querySelector("img");
+        let ratingType = option.textContent.trim().toLowerCase();
+
+        if (ratingType === selectedRating) {
+            img.src = `/static/${selectedRating}_selected.png`; // Change to highlighted image
+        } else {
+            img.src = `/static/${ratingType}.png`; // Revert others to default
+        }
+    });
+}
+</script>
+{% endblock %}
+

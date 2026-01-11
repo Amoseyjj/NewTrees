@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="{{ url_for('static', filename='images/nt_icon.png') }}" type="image/png">
+    <title>Pre-Owned Products</title>
+</head>
+<body>
+    <!--navbar-->
+    <div class="navbarwhole">
+        <div class="title_area">
+            <p>Newtrees</p>
+        </div>
+        <div class="items_area">
+            <a href="{{ url_for('actual_home') }}">HOME</a>
+            <p class="active">PRE-OWNED</p>
+            <a href="{{ url_for('market') }}">MARKETPLACE</a>
+            <p>CART</p>
+            <a href="{{ url_for('support')}}">SUPPORT</a>
+        </div>
+    </div>
+    <div class="searchbar_area">
+        <form class="searchbar">
+            <input type="text" id="searchInput" placeholder="Search for products" autocomplete="off">
+        </form>
+    </div>
+    <div class="title_and_buttons">
+        <div class="title">
+            <p id="lmao_text">Showing pre-owned products</p>
+        </div>
+        <div class="buttons">
+            <p>Your Page</p>
+            <p onclick="upload()">+ New</p>
+        </div>
+    </div>
+    <hr style="width:95%;border: 1px solid black;">
+    <div class="products-grid">
+        {% for product in products|reverse %}
+        <a href="{{ url_for('product_details', product_id=product[0], referrer=request.path) }}">
+        <div class="product-box" id="{{ product[1] }} {{ product[4] }}">
+            <img src="{{ url_for('static', filename='product_images/' + product[6]) }}" alt="Product Image">
+            <h3>{{ product[1] }}</h3> <!-- Name -->
+            <p class="seller"><span>Posted by: </span>{{ product[4] }}</p> <!-- Seller -->
+            <p class="price">${{ product[3] }}</p> <!-- Price -->
+        </div>
+        </a>
+        {% endfor %}
+    </div>
+    <div class="invalid_message">
+        <div class="invalid_message_inner">
+            <img src="{{ url_for('static', filename='images/frog.png') }}">
+            <p>No search results found :(</p>
+        </div>
+    </div>
+    
+    
+
+    <!--expand img(hidden)-->
+    <div class="expanded">
+        <!--upload form-->
+        <div class="upload_form_centering">
+            <div class="upload_form">
+                <div class="title_and_exit">
+                    <p style="margin-left:5%">NEW PRODUCT</p>
+                    <p class="exit_button" onclick="exit()">&times;</p>
+                </div>
+                <div class="form_wrapper">
+                    <!-- Upload Image Circle -->
+                    <div class="upload-image-centering">
+                        <p>Upload Image: <span class="req-text" id="req-product_image">*Required Field</span></p>
+                        <label class="upload_circle">
+                            <div class="plus_icon">+</div>
+                            <input type="file" name="product_image" accept="image/*" id="product_image_input">
+                        </label>
+                    </div>
+                    
+
+                    <!--form fields-->
+                    <div class="form_fields_centering">
+                        <form class="form_fields" action="{{ url_for('submit_form', product_type='pre-owned') }}" method="POST" id="form_fields">
+                            <div>
+                                <label for="product_name">Product Name: <span class="req-text" id="req-product_name">*Required Field</span></label><br>
+                                <input type="text" name="product_name" placeholder="Enter Product Name" required autocomplete="off"><br>
+                            </div>
+                            <div>
+                                <label for="product_desc">Product Description: <span class="req-text" id="req-product_desc">*Required Field</span></label><br>
+                                <textarea name="product_desc" placeholder="Enter Product Description" required autocomplete="off"></textarea><br>
+                            </div>
+                            <div>
+                                <label for="product_price">Product Price: <span class="req-text" id="req-product_price">*Required Field</span></label><br>
+                                <input type="number" name="product_price" step="0.01" placeholder="Enter Product Price" required autocomplete="off"><br>
+                            </div>
+                            <div class="button_centering">
+                                <button type="submit" id="submit" disabled>+ Add Product</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--upload form-->
+    </div>
+    <footer class="footer">
+        <div class="footer-left">
+            <p class="footer-logo">NEWTREES</p>
+            <div class="footer-icons">
+                <div class="icon-circle"><span class="icon"><i class="fa-regular fa-envelope"></i></span></div>
+                <div class="icon-circle"><span class="icon"><i class="fa-brands fa-instagram"></i></span></div>
+                <div class="icon-circle"><span class="icon"><i class="fa-brands fa-linkedin"></i></span></div>
+                <div class="icon-circle"><span class="icon"><i class="fa-brands fa-twitter"></i></span></div>
+                <div class="icon-circle"><span class="icon"><i class="fa-solid fa-phone"></i></span></div>
+            </div>
+        </div>
+        <nav class="footer-middle">
+            <a href="{{ url_for('actual_home') }}">Home</a>
+            <a class="active">Pre-Owned</a>
+            <a href="{{ url_for('market') }}">Marketplace</a>
+            <a href="#">Cart</a>
+            <a href="{{ url_for('support')}}">Support</a>
+            <a href="#">Account</a>
+        </nav>
+        <div class="footer-right">
+            <p class="join-text">Join our forest</p>
+            <button class="footer-register">Register</button>
+            <p class="footer-signin">Already a member? <a href="#">Sign in</a></p>
+        </div>
+    </footer>
+</body>
+<script>
+    document.getElementById('form_fields').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+        
+        console.log('submit clicked')
+
+        var form = document.getElementById('form_fields');
+        var formData = new FormData(form); // Create FormData from the form fields
+        
+        var imageInput = document.getElementById('product_image_input');
+        var imageFile = imageInput.files[0]; // Get the image file
+        
+        if (imageFile) {
+            formData.append('product_image', imageFile); // Append the image file to FormData
+            
+            // Extract image extension (file type)
+            var imageExtension = imageFile.name.split('.').pop().toLowerCase(); // Get the file extension
+            
+            // Append the image extension to FormData
+            formData.append('image_extension', imageExtension); // Add the image type (extension) to FormData
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '{{ url_for("submit_form", product_type="pre-owned") }}', true);
+
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                // Handle success (e.g., redirect or show a success message)
+                location.reload();
+            } else {
+                // Handle error
+                alert('An error occurred while uploading the product.');
+            }
+        };
+
+        xhr.send(formData); // Send the FormData (with image) to the backend
+    });
+    // Get the price input field
+    var priceInput = document.querySelector('input[name="product_price"]');
+
+    // Add event listener to block the negative sign key
+    priceInput.addEventListener('keydown', function(event) {
+        // Check if the pressed key is the "-" (minus) key
+        if (event.key === "-" || event.key === "−") {
+            event.preventDefault(); // Prevent the default action (typing the minus sign)
+        }
+    });
+
+    function upload(){
+        document.querySelector("div.expanded").style.display = "block";
+    }
+    function exit(){
+        document.querySelector("div.expanded").style.display = "none";
+    }
+
+    // Get the input and table body elements
+    const searchInput = document.getElementById('searchInput');
+    const productBoxes = document.querySelectorAll('.product-box');  // Get all rows in the table
+
+    // Add event listener for input to handle key typing
+    searchInput.addEventListener('input', function() {
+        const query = searchInput.value.toLowerCase();  // Get the query from input and convert to lowercase
+        if (query !== "") {
+            document.getElementById("lmao_text").innerHTML = "Showing search results...";
+        } else {
+            document.getElementById("lmao_text").innerHTML = "Showing recommended products";
+        }
+        let hasVisibleBox = false;  // Flag to check if any product box is visible
+
+        // Loop through each product box and check if the query matches the product name or seller
+        productBoxes.forEach(box => {
+            const productName = box.querySelector('h3').textContent.toLowerCase();  // Get the product name
+            const sellerName = box.querySelector('.seller').textContent.replace('Posted by: ', '').toLowerCase();  // Get the seller name, excluding the span
+
+            // If the product name or seller name includes the query, show the box, otherwise hide it
+            if (productName.includes(query) || sellerName.includes(query)) {
+                box.style.display = 'block';  // Show product box
+                hasVisibleBox = true;
+            } else {
+                box.style.display = 'none';  // Hide product box
+            }
+        });
+
+        if (hasVisibleBox) {
+            document.querySelector("div.invalid_message").style.display = "none";  // Hide no results message
+        } else {
+            document.querySelector("div.invalid_message").style.display = "block";  // Show no results message
+        }
+    });
+    function checkFormFields() {
+        var form = document.getElementById('form_fields');
+        var formData = new FormData(form);
+        let isFormValid = true;
+
+        formData.forEach(function(value, key) {
+            var label = document.getElementById(`req-${key}`);
+            var inputField = form.querySelector(`[name="${key}"]`);
+            
+            if (inputField.name === "product_price") {//do special check for price ONLY
+                if (value.trim() === "") {
+                    isFormValid = false;
+                    label?.classList.remove("hidden");
+                    label.innerHTML = "*Required Field";//reset to default error message
+                } else {
+                    label?.classList.add("hidden");
+                }
+
+                var priceValue = parseFloat(priceInput.value); // pulling from global element
+                if (priceValue >= 10000) {//check < 10000
+                    isFormValid = false;
+                    label.innerHTML = "*Price must be less than $10000";
+                    label.classList.remove("hidden");//make message visible
+                }
+                else if (priceInput.value.includes(".") && priceInput.value.split(".")[1].length > 2) {//check 2dp
+                    isFormValid = false; 
+                    label.innerHTML = "*Cents must be 2 decimal places";
+                    label.classList.remove("hidden");//make message visible
+                }
+            } else {
+                if (value.trim() === "") {//check if empty (name/desc ONLY)
+                    isFormValid = false;
+                    label?.classList.remove("hidden");
+                } else {
+                    label?.classList.add("hidden");
+                }
+            }
+        });
+
+        // Image validation and handling image upload display
+        var imageInput = document.querySelector('.upload_circle input[type="file"]');
+        if (!imageInput.files.length) { // Check if an image is selected
+            isFormValid = false;
+            document.getElementById("req-product_image")?.classList.remove("hidden"); // Show required message
+            document.querySelector('.upload_circle').classList.remove('has-image'); // Remove the has-image class
+            document.querySelector('.upload_circle').style.backgroundImage = ''; // Clear the image
+            document.querySelector('.upload_circle .plus_icon').style.display = 'block'; // Show the + icon
+        } else {
+            document.getElementById("req-product_image")?.classList.add("hidden"); // Hide error message
+            document.querySelector('.upload_circle').classList.add('has-image'); // Add the has-image class
+            document.querySelector('.upload_circle .plus_icon').style.display = 'none'; // Hide the + icon
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.querySelector('.upload_circle').style.backgroundImage = `url(${e.target.result})`; // Set uploaded image as background
+            };
+            reader.readAsDataURL(imageInput.files[0]);
+        }
+
+        // Enable/disable button based on whether any field is filled
+        var save = document.getElementById('submit');
+        if (isFormValid) {
+            save.disabled = false;
+            save.classList.add('enabled');
+        } else {
+            save.disabled = true;
+            save.classList.remove('enabled');
+        }
+    }
+    // Attach the checkFormFields function to all input and textarea fields
+    document.querySelectorAll('#form_fields input, #form_fields textarea').forEach(function(input) {
+        input.addEventListener('input', checkFormFields); // Run checkFormFields on any input change
+    });
+    // Attach image change listener
+    document.querySelector('.upload_circle input[type="file"]').addEventListener('change', checkFormFields);
+    checkFormFields();
+</script>
+</html>
